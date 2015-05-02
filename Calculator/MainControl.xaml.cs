@@ -24,7 +24,6 @@ namespace Calculator
         string _operator = null;
         int result = 0;
         int nextNum = 0;
-        int test = 0;
 
         public MainControl()
         {
