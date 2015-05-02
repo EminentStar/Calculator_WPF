@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Calculator.MainControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Width="525" Height="470">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" TextWrapping="Wrap" Text="Caculator" VerticalAlignment="Top" Width="505"/>
+        <TextBox x:Name="tb" HorizontalAlignment="Left" Height="54" Margin="10,39,0,0" TextWrapping="Wrap" Text="0" TextAlignment="Right" VerticalAlignment="Top" IsReadOnly="True" Width="415"/>
+        <Button x:Name="dot" Width="90" Height="60" Content="." Margin="15,328,420,82"></Button>
+        <Button x:Name="clear" Width="90" Height="60" Content="C" Margin="225,328,210,82"></Button>
+        <Button x:Name="zero" Width="90" Height="60" Content="0" Margin="120,328,315,82"></Button>
+        <Button x:Name="_9" Width="90" Height="60" Content="9" Margin="220,263,205,147"></Button>
+        <Button x:Name="_8" Width="90" Height="60" Content="8" Margin="115,263,310,147"></Button>
+        <Button x:Name="_6" Width="90" Height="60" Content="6" Margin="220,198,205,212"></Button>
+        <Button x:Name="_5" Width="90" Height="60" Content="5" Margin="115,163,310,177"></Button>
+        <Button x:Name="_7" Width="90" Height="60" Content="7" Margin="10,228,415,112"></Button>
+        <Button x:Name="_4" Width="90" Height="60" Content="4" Margin="10,163,415,177"></Button>
+        <Button x:Name="_1" Width="90" Height="60" Content="1" Margin="10,98,415,242"></Button>
+        <Button x:Name="_3" Width="90" Height="60" Content="3" Margin="220,98,205,242"></Button>
+        <Button x:Name="_2" Width="90" Height="60" Content="2" Margin="115,98,310,242"></Button>
+        <Button x:Name="equal" Height="60" Content="=" Margin="15,393,210,17"/>
+        <Button x:Name="add" Width="90" Height="60" Content="+" Margin="330,328,105,82"></Button>
+        <Button x:Name="subtract" Width="90" Height="60" Content="-" Margin="325,263,100,147"></Button>
+        <Button x:Name="multiple" Width="90" Height="60" Content="*" Margin="325,198,100,212"></Button>
+        <Button x:Name="divide" Width="90" Height="60" Content="/" Margin="325,133,100,277"></Button>
+        <Button x:Name="backspace" Width="90" Height="60" Content="Backspace" Margin="330,393,105,17"></Button>
+
+    </Grid>
+</UserControl>
