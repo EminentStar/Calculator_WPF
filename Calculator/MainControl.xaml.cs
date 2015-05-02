@@ -88,7 +88,11 @@ namespace Calculator
         }
         void backspace_Click(object sender, RoutedEventArgs e)
         {
-            
+            if(!tb.Text.Equals("0"))
+            {
+                tb.Text = (tb.Text.Length == 1)?("0"):(tb.Text.Substring(0,Convert.ToInt32(tb.Text.Length)-1));
+            }
+                
         }
         void divide_Click(object sender, RoutedEventArgs e)
         {
