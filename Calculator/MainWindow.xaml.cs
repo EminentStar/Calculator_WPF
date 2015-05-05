@@ -25,8 +25,6 @@ namespace Calculator
         {
             InitializeComponent();
             mainGrid.Children.Add(mainControl);
-            
-            
         }
     }
 }

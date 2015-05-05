@@ -1,0 +1,14 @@
+﻿*Ways evaluating expression
+
+1.using COM  (Add a reference  "Microsoft Script Control")
+
+MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl();
+            sc.Language = "VBscript";
+            string expression = "1+2*7";
+            expression += "+2";
+            object result = sc.Eval(expression);
+            Console.WriteLine(result.ToString());
+
+
+
+2. 

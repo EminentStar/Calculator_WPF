@@ -6,20 +6,20 @@
              mc:Ignorable="d" Width="525" Height="470">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" TextWrapping="Wrap" Text="Caculator" VerticalAlignment="Top" Width="505"/>
-        <TextBox x:Name="tb1" HorizontalAlignment="Left" Height="29" Margin="10,39,0,0" TextWrapping="Wrap" Text="0" TextAlignment="Right" VerticalAlignment="Top" IsReadOnly="True" Width="415"/>
-        <TextBox x:Name="tb2" HorizontalAlignment="Left" Height="29" Margin="10,73,0,0" TextWrapping="Wrap" Text="0" TextAlignment="Right" VerticalAlignment="Top" IsReadOnly="True" Width="415"/>
+        <TextBox x:Name="resultTxt" HorizontalAlignment="Left" Height="29" Margin="10,39,0,0" TextWrapping="Wrap" TextAlignment="Right" VerticalAlignment="Top" IsReadOnly="True" Width="415"/>
+        <TextBox x:Name="currentTxt" HorizontalAlignment="Left" Height="29" Margin="10,73,0,0" TextWrapping="Wrap" Text="0" TextAlignment="Right" VerticalAlignment="Top" IsReadOnly="True" Width="415"/>
         <Button x:Name="dot" Width="90" Height="60" Content="." Margin="15,328,420,82"></Button>
         <Button x:Name="clear" Width="90" Height="60" Content="C" Margin="225,328,210,82"></Button>
-        <Button x:Name="zero" Width="90" Height="60" Content="0" Margin="120,328,315,82"></Button>
-        <Button x:Name="_9" Width="90" Height="60" Content="9" Margin="220,263,205,147"></Button>
-        <Button x:Name="_8" Width="90" Height="60" Content="8" Margin="115,263,310,147"></Button>
-        <Button x:Name="_6" Width="90" Height="60" Content="6" Margin="220,198,205,212"></Button>
-        <Button x:Name="_5" Width="90" Height="60" Content="5" Margin="115,163,310,177"></Button>
-        <Button x:Name="_7" Width="90" Height="60" Content="7" Margin="10,228,415,112"></Button>
-        <Button x:Name="_4" Width="90" Height="60" Content="4" Margin="10,163,415,177"></Button>
-        <Button x:Name="_1" Width="90" Height="60" Content="1" Margin="10,98,415,242"></Button>
-        <Button x:Name="_3" Width="90" Height="60" Content="3" Margin="220,98,205,242"></Button>
-        <Button x:Name="_2" Width="90" Height="60" Content="2" Margin="115,98,310,242"></Button>
+        <Button x:Name="btn_0" Width="90" Height="60" Content="0" Margin="120,328,315,82"></Button>
+        <Button x:Name="btn_9" Width="90" Height="60" Content="9" Margin="220,263,205,147"></Button>
+        <Button x:Name="btn_8" Width="90" Height="60" Content="8" Margin="115,263,310,147"></Button>
+        <Button x:Name="btn_6" Width="90" Height="60" Content="6" Margin="220,198,205,212"></Button>
+        <Button x:Name="btn_5" Width="90" Height="60" Content="5" Margin="115,163,310,177"></Button>
+        <Button x:Name="btn_7" Width="90" Height="60" Content="7" Margin="10,228,415,112"></Button>
+        <Button x:Name="btn_4" Width="90" Height="60" Content="4" Margin="10,163,415,177"></Button>
+        <Button x:Name="btn_1" Width="90" Height="60" Content="1" Margin="10,98,415,242"></Button>
+        <Button x:Name="btn_3" Width="90" Height="60" Content="3" Margin="220,98,205,242"></Button>
+        <Button x:Name="btn_2"  Width="90" Height="60" Content="2" Margin="115,98,310,242"></Button>
         <Button x:Name="equal" Height="60" Content="=" Margin="15,393,210,17"/>
         <Button x:Name="add" Width="90" Height="60" Content="+" Margin="330,328,105,82"></Button>
         <Button x:Name="subtract" Width="90" Height="60" Content="-" Margin="325,263,100,147"></Button>
