@@ -28,16 +28,18 @@ namespace Calculator
         private string lastOperator;
         private string lastOperand;
         private bool isFinished;
+        private bool ZeroOperator;
+
         public MainControl()
         {
             InitializeComponent();
             sc.Language = "VBscript";
             currentTxt.Text = "0";
+            ZeroOperator = true;
 
             btn_1.Click += num_Click; btn_2.Click += num_Click; btn_3.Click += num_Click; btn_4.Click += num_Click; btn_5.Click += num_Click;
             btn_6.Click += num_Click; btn_7.Click += num_Click; btn_8.Click += num_Click; btn_9.Click += num_Click; btn_0.Click += num_Click;
             dot.Click += dot_Click; clear.Click += clear_Click; equal.Click += equal_Click;
-
             add.Click += OperatorCheck; subtract.Click += OperatorCheck; multiple.Click += OperatorCheck; divide.Click += OperatorCheck;
 
             backspace.Click += backspace_Click;
@@ -46,7 +48,11 @@ namespace Calculator
         //Exception Handling
         public void InitializedCheckAndInsert(string paramNum)
         {
+            if (isFinished) // The variable isFinished's value is true; mind you, you gotta clear the original value and then you need to newly start inserting values
+                currentTxt.Text = "0";
+            isFinished = false;
             string lastChar = currentTxt.Text.Substring(currentTxt.Text.Length - 1, 1);
+            
 
             if (currentTxt.Text.Equals("0") || (lastChar.Equals("/") || lastChar.Equals("*") || lastChar.Equals("+") || lastChar.Equals("-")))
                 currentTxt.Text = paramNum;
@@ -54,40 +60,66 @@ namespace Calculator
                 currentTxt.Text += paramNum;
         }
 
+        public void OperatorCheck(object sender, RoutedEventArgs e)
+        {
+            //lastOperand = currentTxt.Text;
+            //inputStr = GetExressionElement(e);
+            //string lastChar = "";
+
+            //if(!resultTxt.Text.Equals(""))
+            //    lastChar = resultTxt.Text.Substring(resultTxt.Text.Length - 1, 1);
+
+            //if (lastChar.Equals("/") || lastChar.Equals("*") || lastChar.Equals("+") || lastChar.Equals("-"))
+            //{
+            //    resultTxt.Text = resultTxt.Text.Remove(resultTxt.Text.Length - 1);
+            //    resultTxt.Text += inputStr;
+            //}
+            //else
+            //{
+            //    result = sc.Eval(resultTxt.Text + currentTxt.Text);
+            //    resultTxt.Text += currentTxt.Text + inputStr;
+            //    currentTxt.Text = result.ToString();
+            //}
+            //isFinished = true;
+            //lastOperator = inputStr;
+
+            lastOperand = currentTxt.Text;
+            inputStr = GetExressionElement(e);
+            string lastChar = "";
+
+            if(isFinished)
+            {
+                resultTxt.Text = resultTxt.Text.Remove(resultTxt.Text.Length - 1);
+                resultTxt.Text += inputStr;
+            }
+            else
+            {
+                if(!ZeroOperator)
+                {
+                    result = sc.Eval(resultTxt.Text + currentTxt.Text);
+                    resultTxt.Text += currentTxt.Text + inputStr;
+                    currentTxt.Text = result.ToString();
+                }
+                else
+                {
+                    resultTxt.Text += currentTxt + inputStr;
+                    ZeroOperator = false;
+                }
+            }
+
+            isFinished = true;
+            lastOperator = inputStr;
+        }
+
         public void dot_check()
         {
             if (!currentTxt.Text.Contains("."))
                 currentTxt.Text += ".";
         }
-
-        void num_Click(object sender, RoutedEventArgs e)
+        public void num_Click(object sender, RoutedEventArgs e)
         {
             inputStr = GetExressionElement(e);
             InitializedCheckAndInsert(inputStr);
-
-        }
-
-        public void OperatorCheck(object sender, RoutedEventArgs e)
-        {
-            lastOperand = currentTxt.Text;
-            inputStr = GetExressionElement(e);
-            string lastChar = currentTxt.Text.Substring(currentTxt.Text.Length - 1, 1);
-
-            if (lastChar.Equals("/") || lastChar.Equals("*") || lastChar.Equals("+") || lastChar.Equals("-"))
-            {
-                resultTxt.Text = resultTxt.Text.Remove(resultTxt.Text.Length - 1);
-                resultTxt.Text += inputStr;
-
-            }
-            else
-            {
-                //currentTxt.Text += inputStr;
-                result = sc.Eval(resultTxt.Text + currentTxt);
-                resultTxt.Text += currentTxt.Text + inputStr;
-                currentTxt.Text = result.ToString();
-                isFinished = true;
-            }
-            lastOperator = inputStr;
         }
 
         //Get the string of what I've clicked just now
@@ -95,13 +127,12 @@ namespace Calculator
         {
             return e.Source.ToString().Substring(e.Source.ToString().Length - 1, 1); //Get the string of what I've clicked just now
         }
-
-        void backspace_Click(object sender, RoutedEventArgs e)
+        public void backspace_Click(object sender, RoutedEventArgs e)
         {
             if (!currentTxt.Text.Equals("0"))
                 currentTxt.Text = (currentTxt.Text.Length == 1) ? ("0") : (currentTxt.Text.Remove(currentTxt.Text.Length - 1));
         }
-        void equal_Click(object sender, RoutedEventArgs e)
+        public void equal_Click(object sender, RoutedEventArgs e)
         {
             expression = resultTxt.Text + currentTxt.Text;
             if (expression[expression.Length - 1] == '+' || expression[expression.Length - 1] == '-' || expression[expression.Length - 1] == '*' || expression[expression.Length - 1] == '/')
@@ -110,12 +141,13 @@ namespace Calculator
             currentTxt.Text = result.ToString();
             resultTxt.Text = null;
         }
-
-        void clear_Click(object sender, RoutedEventArgs e)
+        public void clear_Click(object sender, RoutedEventArgs e)
         {
-            resultTxt.Text = null; currentTxt.Text = "0";
+            resultTxt.Text = null; 
+            currentTxt.Text = "0";
+            ZeroOperator = true;
         }
-        void dot_Click(object sender, RoutedEventArgs e)
+        public void dot_Click(object sender, RoutedEventArgs e)
         {
             dot_check();
         }
