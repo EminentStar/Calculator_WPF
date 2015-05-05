@@ -1,4 +1,7 @@
-﻿*Ways evaluating expression
+﻿Search Keyword "evaluate math expression in c#"
+ -> http://stackoverflow.com/questions/355062/is-there-a-string-math-evaluator-in-net
+
+*Ways evaluating expression
 
 1.using COM  (Add a reference  "Microsoft Script Control")
 
@@ -8,7 +11,3 @@ MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl();
             expression += "+2";
             object result = sc.Eval(expression);
             Console.WriteLine(result.ToString());
-
-
-
-2. 

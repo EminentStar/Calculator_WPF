@@ -1,0 +1,26 @@
+﻿EH001 : The Maximum count of decimal is 16
+EH002 : Number 0 is removed when you put the other number after you put zero at first.
+EH003 : The total sum of the characters you put is 18 including '0', '.' and decimals
+EH004 : The result is zero and shows 0 and an operator if you put the operator when there is nothing.
+
+
+
+
+-	Inputnum 이 비어있을 때 부호를 누르면 0 [부호] 를 all에 출력 결과값은 0 
+-	최대값은 숫자 16개 -> 문자 16개 (EH001)
+-	0. + 숫자 16개 제한 -> 문자 18개 (EH003)
+-	맨처음 0을 입력하고 숫자를 입력하면 0은 지워짐 (EH002)
+
+
++ 눌러도 합산 (=안누르고 + 눌러도 계산되는거)
+
+연속해서 숫자 누르면 뜨는거 (ex 33333)
+
+히스토리에 3+ 계속 누르면 3+3+ 뜨는거 (ex 3+3+3+3+)
+
+연산자 누르고 다른 거 누르면 바뀌는 거 (ex 3+*  3*)
+
+3+= 연속 더하기 
+소수점 처리
+1+1 = 하고 (계산하고) . 누르면 0.으로된다.
+0.00000000

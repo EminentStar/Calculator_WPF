@@ -66,6 +66,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Content Include="Info\Infomation.txt" />
+    <Content Include="Info\ExceptionHandling.txt" />
     <Compile Include="MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
