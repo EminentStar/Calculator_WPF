@@ -21,16 +21,17 @@ namespace Calculator
     public partial class MainControl : UserControl
     {
         private MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl();
-        private string expression;
-        private object result;
-        private string inputStr;
+        private char inputStr; //Get a character from the button you just clicked
+        private string eStr; // used for the GetExpressionElement method
+        private char lastChar;
         private string lastOperator;
         private string lastOperand;
+        private string expression;
+        private object result;
         private int numLen;
+        private bool isDivideByZero;
         private bool isFinished;
         private bool ZeroOperator;
-        private bool isDivideByZero;
-        private char lastChar;
 
         public MainControl()
         {
@@ -41,11 +42,26 @@ namespace Calculator
             btn_6.Click += num_Click; btn_7.Click += num_Click; btn_8.Click += num_Click; btn_9.Click += num_Click; btn_0.Click += num_Click;
             dot.Click += dot_Click; clear.Click += clear_Click; equal.Click += equal_Click;
             add.Click += OperatorCheck; subtract.Click += OperatorCheck; multiple.Click += OperatorCheck; divide.Click += OperatorCheck;
-
+            ce.Click += ce_Click;
             backspace.Click += backspace_Click;
         }
-        //Exception Handling
-        public void InitializedCheckAndInsert(string paramNum)
+
+        public char GetExressionElement(RoutedEventArgs e) //extract a digit from button
+        {
+            eStr = e.Source.ToString();
+            return eStr[eStr.Length - 1];
+        }
+        public void num_Click(object sender, RoutedEventArgs e)// number button click handler
+        {
+            if (isDivideByZero) { return; } //cannot click number buttons after divide by 0 trap happen
+
+            if (numLen < 16) //Exception Handling EH001
+            {
+                inputStr = GetExressionElement(e);
+                InitializedCheckAndInsert(inputStr);
+            }
+        }
+        public void InitializedCheckAndInsert(char paramNum) //
         {
             if (isFinished) // The variable isFinished's value is true; mind you, you gotta clear the original value and then you need to newly start inserting values
                 currentTxt.Text = "0";
@@ -54,7 +70,7 @@ namespace Calculator
 
             if (currentTxt.Text.Equals("0") || (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/')) //related to EH002
             {
-                currentTxt.Text = paramNum;
+                currentTxt.Text = paramNum.ToString();
                 numLen = 1;
             }
             else
@@ -105,23 +121,10 @@ namespace Calculator
                 }
             }
             isFinished = true;
-            lastOperator = inputStr;
+            lastOperator = inputStr.ToString();
         }
-        public void num_Click(object sender, RoutedEventArgs e)
-        {
-            if (isDivideByZero) { return ; }
-
-            if (numLen < 16) //Exception Handling EH001
-            {
-                inputStr = GetExressionElement(e);
-                InitializedCheckAndInsert(inputStr);
-            }
-        }
+        
         //Get the string of what I've clicked just now
-        public string GetExressionElement(RoutedEventArgs e)
-        {
-            return e.Source.ToString().Substring(e.Source.ToString().Length - 1, 1); //Get the string of what I've clicked just now
-        }
 
         public void equal_Click(object sender, RoutedEventArgs e)
         {
@@ -134,9 +137,6 @@ namespace Calculator
                     expression += expression.Remove(expression.Length - 1);
             }
             else { expression = currentTxt.Text + lastOperator + lastOperand; }
-
-
-
             
             if(expression.Contains("/0")) //divide by zero error
             {
@@ -155,7 +155,7 @@ namespace Calculator
                 numLen = 1;
             }
         }
-        public void clear_Click(object sender, RoutedEventArgs e)
+        public void clearAll()
         {
             expression = null;
             lastOperator = null;
@@ -166,6 +166,18 @@ namespace Calculator
             ZeroOperator = true;
             numLen = 1;
         }
+        public void ce_Click(object sender, RoutedEventArgs e)
+        {
+            currentTxt.Text = "0";
+            numLen = 1;
+            if (isDivideByZero)
+                clearAll();
+        }
+        public void clear_Click(object sender, RoutedEventArgs e)
+        {
+            clearAll();
+        }
+        
         public void dot_Click(object sender, RoutedEventArgs e)
         {
             dot_check();
