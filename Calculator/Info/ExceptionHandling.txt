@@ -23,7 +23,6 @@ EH014 : Print "0으로 나눌 수 없습니다." when you divide any number by 0
 		After that youi need to prohibit input again until you click 'Clear' button.
 EH015 : Handle kinda issue about the situation 0.00000000 gotta change to 0 (Remove unecessary 0)
 
-
 *KR_version
 -	최대값은 숫자 16개 -> 문자 16개 (EH001)
 -	맨처음 0을 입력하고 숫자를 입력하면 0은 지워짐 (EH002)
@@ -37,7 +36,6 @@ EH015 : Handle kinda issue about the situation 0.00000000 gotta change to 0 (Rem
 -	1+1 = 하고 (계산하고) . 누르면 0.으로된다. (EH010)
 -	3+= 연속 더하기 (EH011)
 -	0.000000000000 처리(EH015)
-
 
 -	Backspace 버튼은 피연산자를 입력도중에만 사용가능하다. 
 	만약에 연산결과를 출력한 경우나, 연산자를 입력한 경우에는 Backspace가 기능을 하지않는다. (EH012)

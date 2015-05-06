@@ -22,16 +22,16 @@ namespace Calculator
     {
         private MSScriptControl.ScriptControl sc = new MSScriptControl.ScriptControl();
         private char inputStr; //Get a character from the button you just clicked
-        private string eStr; // used for the GetExpressionElement method
-        private char lastChar;
-        private string lastOperator;
-        private string lastOperand;
-        private string expression;
-        private object result;
-        private int numLen;
-        private bool isDivideByZero;
-        private bool isFinished;
-        private bool ZeroOperator;
+        private string eStr; // used for extracting a digit from the button clicked in the GetExpressionElement method
+        private char lastChar; //used for getting the last character of currentTxt
+        private string lastOperator; //get the last operator you've clicked
+        private string lastOperand;  // get the last operand you've inserted
+        private string expression; // refer to the entire expression in the equal_Click method
+        private object result; // used for evaulating and getting the result of the expression
+        private int numLen; // used so that we could check how many digits we put; totaly you can put 16 digits
+        private bool isDivideByZero; //used for checking whether you're facing divide by zero trap or not. (true value is when you're facing that)
+        private bool isFinished; //used for checking whther you've just clicked equal sign or operator, so then, you can make operand
+        private bool ZeroOperator; //used for check whether there is no operator or not.
 
         public MainControl()
         {
@@ -65,38 +65,38 @@ namespace Calculator
         {
             if (isFinished) // The variable isFinished's value is true; mind you, you gotta clear the original value and then you need to newly start inserting values
                 currentTxt.Text = "0";
-            isFinished = false;
+            isFinished = false; //It means that you've just started to insert digits
             lastChar = currentTxt.Text[currentTxt.Text.Length - 1];
 
             if (currentTxt.Text.Equals("0") || (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/')) //related to EH002
             {
                 currentTxt.Text = paramNum.ToString();
-                numLen = 1;
+                numLen = 1; //reset numLet
             }
             else
             {
                 currentTxt.Text += paramNum; //relate to EH006
-                numLen++;
+                numLen++; 
             }
         }
         public void OperatorCheck(object sender, RoutedEventArgs e)
         {
-            if (isDivideByZero) { return; }
+            if (isDivideByZero) { return; } //cannot click number buttons after divide by 0 trap happen
             numLen = 1; //related to EH001
             lastOperand = Convert.ToDouble(currentTxt.Text).ToString(); // The first line related to EH015
             inputStr = GetExressionElement(e);
 
             if (isFinished) // The meaning of the 'isFinished' variable having true is that you've just put an operator most recently. So you need to change the operator when putting another operator in this case.
             {//related to EH008
-                if (!resultTxt.Text.Equals(""))
+                if (!resultTxt.Text.Equals("")) //If there is something in resultTxt
                 {
                     resultTxt.Text = resultTxt.Text.Remove(resultTxt.Text.Length - 1);
                     resultTxt.Text += inputStr;
                 }
                 else
-                    resultTxt.Text = lastOperand + inputStr;  //related to EH015
+                    resultTxt.Text = "0" + inputStr;  //related to EH015
             }
-            else
+            else // isFinished's vaule is false
             {
                 numLen = 1;
                 if (!ZeroOperator)
@@ -120,14 +120,15 @@ namespace Calculator
                     ZeroOperator = false;
                 }
             }
-            isFinished = true;
-            lastOperator = inputStr.ToString();
+            isFinished = true; //set true and prepare for insert new operand
+            lastOperator = inputStr.ToString(); //store the latest operater
         }
         
         //Get the string of what I've clicked just now
-
         public void equal_Click(object sender, RoutedEventArgs e)
         {
+            // (0/0)               OverflowException
+            // (number/0)          DivideByZeroException
             if (isDivideByZero) { return; }
             if (!isFinished)
             {
@@ -177,7 +178,6 @@ namespace Calculator
         {
             clearAll();
         }
-        
         public void dot_Click(object sender, RoutedEventArgs e)
         {
             dot_check();
