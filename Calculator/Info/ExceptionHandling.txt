@@ -11,9 +11,12 @@ EH008 : The operator should be able to change when you put another operator just
 EH009 : Handle points
 EH010 : the result of putting point after you've just finished evalutation needs to be "0."
 EH011 : Let you think about this situation. you've finished inserting "3+". And then, when you click '=', the result of evaluation requires to be '6'. If you continue this action, you need to add 3 continuously.
+
 EH012 : Backspace button doesn't perform when you finish evaluation or put an operator. It can only be used when you're in the middle of inserting operand.
-EH013 : 
-EH014 : 
+EH013 : Print "정의되지 않은 결과입니다." when you divide 0 by 0. And then Let you inhibit input again until you click 'Clear' button.
+EH014 : Print "0으로 나눌 수 없습니다." when you divide any number by 0. After that youi need to prohibit input again until you click 'Clear' button.
+EH015 : Handle kinda issue about the situation 0.00000000 gotta change to 0 (Remove unecessary 0)
+
 
 *KR_version
 -	최대값은 숫자 16개 -> 문자 16개 (EH001)
@@ -29,5 +32,10 @@ EH014 :
 -	3+= 연속 더하기 (EH011)
 
 -	Backspace 버튼은 피연산자를 입력도중에만 사용가능하다. 만약에 연산결과를 출력한 경우나, 연산자를 입력한 경우에는 Backspace가 기능을 하지않는다. (EH012)
--	Divide by Zero 트랩에 걸리면 입력창에 "정의되지 않은 결과입니다." 혹은 "0으로 나눌 수 없습니다." 문자열을 출력한 후 입력을 받지 못하게 설정한다. (EH013)
--	Divide by Zero 트랩에 걸린 후 Clear 버튼을 누르지 않는 이상 그외 어떤키의 입력이 불가능하다. (EH014)
+-	0을 0으로 나누면 "정의되지 않은 결과입니다." 라는 문자열을 출력한 후 입력을 받지 못하게 설정한다. (EH013)
+-	임의의 숫자를 0으로 나누면 "0으로 나눌 수 없습니다." 라는 문자열을 출력한 후 입력을 받지 못하게 설정한다. (EH014)
+-	0.000000000000 처리(EH015)
+-	
+
+0.000000000000처리랑
+영나누기 에러처리해야됨...

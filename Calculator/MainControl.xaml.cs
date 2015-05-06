@@ -35,10 +35,7 @@ namespace Calculator
         public MainControl()
         {
             InitializeComponent();
-            sc.Language = "VBscript";
-            currentTxt.Text = "0";
-            ZeroOperator = true;
-            numLen = 1;
+            sc.Language = "VBscript"; currentTxt.Text = "0"; ZeroOperator = true; numLen = 1;
 
             btn_1.Click += num_Click; btn_2.Click += num_Click; btn_3.Click += num_Click; btn_4.Click += num_Click; btn_5.Click += num_Click;
             btn_6.Click += num_Click; btn_7.Click += num_Click; btn_8.Click += num_Click; btn_9.Click += num_Click; btn_0.Click += num_Click;
@@ -68,10 +65,9 @@ namespace Calculator
         }
         public void OperatorCheck(object sender, RoutedEventArgs e)
         {
-            if (isDivideByZero)
-                return;
+            if (isDivideByZero) { return; }
             numLen = 1; //related to EH001
-            lastOperand = currentTxt.Text;
+            lastOperand = Convert.ToDouble(currentTxt.Text).ToString(); // The first line related to EH015
             inputStr = GetExressionElement(e);
 
             if (isFinished) // The meaning of the 'isFinished' variable having true is that you've just put an operator most recently. So you need to change the operator when putting another operator in this case.
@@ -82,36 +78,29 @@ namespace Calculator
                     resultTxt.Text += inputStr;
                 }
                 else
-                    resultTxt.Text = currentTxt.Text + inputStr;
+                    resultTxt.Text = lastOperand + inputStr;  //related to EH015
             }
             else
             {
                 numLen = 1;
                 if (!ZeroOperator)
                 {
-                    string tempStr = resultTxt.Text + currentTxt.Text;
+                    string tempStr = resultTxt.Text + lastOperand;  //related to EH015
                     
-                    if (tempStr.Substring(0, 3).Equals("0/0"))
+                    if (tempStr.Contains("/0"))
                     {
-                        result = "정의되지 않은 결과입니다.";
+                        result = (tempStr.Substring(0, 3).Equals("0/0")) ? "정의되지 않은 결과입니다." : "0으로 나눌 수 없습니다.";
                         isDivideByZero = true;
                     }
-                    else if(tempStr.Contains("0/0"))
-                    {
-                        result = "0으로 나눌 수 없습니다.";
-                        isDivideByZero = true;
-                    }
-                    else
-                    {
-                        result = sc.Eval(tempStr);
-                    }
-                    resultTxt.Text += currentTxt.Text + inputStr; // related to EH007
-                    currentTxt.Text = result.ToString(); //related to EH005
+                    else { result = sc.Eval(tempStr); }
 
+                    resultTxt.Text += lastOperand + inputStr; // related to EH007 and EH015
+                    currentTxt.Text = result.ToString(); //related to EH005
                 }
                 else //related to EH004
                 {
-                    resultTxt.Text += currentTxt.Text + inputStr;
+                    resultTxt.Text += lastOperand + inputStr;  //related to EH015
+                    currentTxt.Text = lastOperand; //related to EH015
                     ZeroOperator = false;
                 }
             }
@@ -120,8 +109,7 @@ namespace Calculator
         }
         public void num_Click(object sender, RoutedEventArgs e)
         {
-            if (isDivideByZero)
-                return;
+            if (isDivideByZero) { return ; }
 
             if (numLen < 16) //Exception Handling EH001
             {
@@ -137,8 +125,7 @@ namespace Calculator
 
         public void equal_Click(object sender, RoutedEventArgs e)
         {
-            if (isDivideByZero)
-                return;
+            if (isDivideByZero) { return; }
             if (!isFinished)
             {
                 lastOperand = currentTxt.Text;
@@ -150,7 +137,16 @@ namespace Calculator
 
 
 
-            if (!expression.Contains("0/0"))
+            
+            if(expression.Contains("/0")) //divide by zero error
+            {
+                result = (expression.Substring(0, 3).Equals("0/0")) ? "정의되지 않은 결과입니다." : "0으로 나눌 수 없습니다.";
+                currentTxt.Text = result.ToString();
+                isFinished = true;
+                numLen = 17;
+                isDivideByZero = true;
+            }
+            else // !expression.Contains("/0")
             {
                 result = sc.Eval(expression);
                 currentTxt.Text = result.ToString();
@@ -158,18 +154,12 @@ namespace Calculator
                 isFinished = true;
                 numLen = 1;
             }
-            else //divide by zero error
-            {
-                result = "정의되지 않은 결과입니다.";
-                currentTxt.Text = result.ToString();
-                isFinished = true;
-                numLen = 17;
-
-            }
-
         }
         public void clear_Click(object sender, RoutedEventArgs e)
         {
+            expression = null;
+            lastOperator = null;
+            lastOperand = null;
             currentTxt.Text = "0";
             resultTxt.Text = null;
             isDivideByZero = false;
